@@ -21,7 +21,7 @@ class CreateCategoriesTable extends Migration {
 			$table->integer('has_discount')->default(0);
 			$table->float('discount', 10, 0)->default(0);
 			$table->float('tax', 10, 0)->default(0);
-			$table->string('tax_name');
+			$table->string('tax_name')->nullable();
 			$table->integer('tax_is_inclusive')->default(1);
 		});
 	}

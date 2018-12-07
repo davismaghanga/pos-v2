@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration {
 			$table->integer('category');
 			$table->integer('supplier');
 			$table->integer('stock');
-			$table->integer('min_stock');
+			$table->integer('min_stock')->default(10);
 		});
 	}
 

@@ -15,6 +15,7 @@ class SalesController extends Controller
     public function products(Request $request)
     {
         //TODO check whether auth user is allowed to get products for this business id
+
         $this->validate($request,[
             'business_code'=>'required'
         ]);

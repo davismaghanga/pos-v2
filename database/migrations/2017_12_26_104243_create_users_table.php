@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration {
 			$table->string('phone');
 			$table->integer('business');
 			$table->integer('level');
-			$table->integer('status')->default(1);
-			$table->string('remember_token', 200);
+			$table->integer('status')->nullable();
+			$table->string('remember_token', 200)->nullable();
 			$table->integer('access')->default(0);
 			$table->integer('can_send_sms')->default(1);
 		});
