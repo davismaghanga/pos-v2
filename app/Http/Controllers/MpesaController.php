@@ -18,7 +18,7 @@ class MpesaController extends Controller
 
     public function postFetchLastTransaction(Request $request)
     {
-        $transaction=PaymentConfirmation::where([['msisdn',$request->input('phone_number')],['state',0]])->orderBy('id','desc')->first();
+        $transaction=PaymentConfirmation::where([['state',0]])->orderBy('id','desc')->get();
         if($transaction==null){
             return Response::json([
                 'success'=>false
@@ -27,7 +27,9 @@ class MpesaController extends Controller
 
         return Response::json([
             'success'=>true,
-            'transaction'=>$transaction
+            'transactions'=>$transaction
         ]);
     }
+
+
 }

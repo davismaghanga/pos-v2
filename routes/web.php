@@ -25,6 +25,8 @@ Route::post('/verifyLogin', 'AuthController@authenticate');
 
 Route::post('/registerBusiness', 'BusinessController@register');
 
+Route::post('/mpesa-transactions','MyTransactionController@postMpesaTransactionData');
+
 AdvancedRoute::controller('/home', 'HomeController');
 
 AdvancedRoute::controller('/users', 'UserController');

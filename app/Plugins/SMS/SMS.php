@@ -23,13 +23,13 @@ class SMS {
 
         $to_send=json_encode($fields);
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://api.sematime.com/v1/1463146153915/messages");
+        curl_setopt($ch, CURLOPT_URL, "http://api.sematime.com/v1/1506529101270/messages");
         if ($this->business->sms_has_custom){
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
                 'ApiKey: ' . $this->business->sms_api_key));
         }else {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
-                'ApiKey: 2f4c5ac298db431e971e5e468fad0fee'));
+                'ApiKey: b3f8367087654ee286c87304eddff6da'));
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, FALSE);

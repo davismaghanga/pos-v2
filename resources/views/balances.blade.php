@@ -30,6 +30,12 @@ ndsection
         </div>
         <!-- /.box-header -->
         <div class="box-body">
+            @if($sales->isEmpty())
+                <tr>
+                    <th colspan="5">Sorry. No balances were found.</th>
+                </tr>
+            @endif
+
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -45,11 +51,6 @@ ndsection
                 </thead>
                 <tbody>
 
-                @if($sales->isEmpty())
-                    <tr>
-                        <th colspan="5">Sorry. No balances were found.</th>
-                    </tr>
-                @endif
 
                 @php($s_total=0)
                 @php($s_balance=0)

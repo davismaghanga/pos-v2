@@ -214,7 +214,7 @@
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
                                                         <label for="" class="control-label">Minutes</label>
-                                                        <input type="number" name="minutes" value="15" required class="form-control">
+                                                        <input type="number" name="minutes" value="0" required class="form-control">
                                                     </div>
                                                 </div>
 
@@ -352,27 +352,31 @@
 
                 <div class="box-body">
 
-                    <div class="form-group">
-                        <label for="">Phone number</label>
-                        <input type="text" class="form-control" id="mpesa-number-input">
-                    </div>
+                    {{--<div class="form-group">--}}
+                        {{--<label for="">Phone number</label>--}}
+                        {{--<input type="text" class="form-control" id="mpesa-number-input">--}}
+                    {{--</div>--}}
 
                     <div class="form-group">
                         <table class="table table-condensed" id="t_table" style="display: none">
+                            <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th>KYC Name</th>
                                 <th>Phone Number</th>
                                 <th>Transaction Code</th>
                                 <th style="width: 40px">Amount</th>
+                                <th style="width: 40px">
+                                    Action
+                                </th>
                             </tr>
-                            <tr>
-                                <td>1.</td>
-                                <td id="t_name"></td>
-                                <td id="t_phone"></td>
-                                <td id="t_code"></td>
-                                <td ><span class="badge bg-red" id="t_amount" ></span></td>
-                            </tr>
+
+                            </thead>
+
+                            <tbody id="t_trans_body">
+
+                            </tbody>
+
 
                         </table>
 
@@ -382,7 +386,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-primary pull-right" onclick="check()">Check</button>
+                        {{--<button class="btn btn-primary pull-right" onclick="check()">Check</button>--}}
                         <button class="btn btn-success pull-right" style="display:none;" id="t_apply" onclick="apply()">Apply</button>
                     </div>
                 </div>
@@ -570,6 +574,9 @@
 
             if(value==1){
                 $('#mpesaModal').modal('show');
+
+                check();
+
             }else if(value==3){
                 $('#loyaltyModal').modal('show');
                 loadCustomerPoints();
@@ -583,18 +590,25 @@
             window.url='{{url('mpesa/fetch-last-transaction')}}';
             window.mpesaData=null;
             $('#t_apply').hide();
-            axios.post(url,{'phone_number':$('#mpesa-number-input').val()})
+            axios.post(url)
                     .then(function(res){
                         if(res.data.success){
-                            var transaction=res.data.transaction;
-                            $('#t_apply').show();
+
+                            $('#t_trans_body').html('');
+
+                           $.each(res.data.transactions,function(index,transaction){
+                               $('#t_trans_body').append(' <tr>\n' +
+                                   '                                <td>'+(index+1)+'</td>\n' +
+                                   '                                <td id="t_code">'+transaction.kyc_name+'</td>\n' +
+                                   '                                <td id="t_phone">'+transaction.msisdn+'</td>\n' +
+                                   '                                <td id="t_name">'+transaction.trans_id+'</td>\n' +
+                                   '                                <td ><span class="badge bg-red" id="t_amount" >'+transaction.trans_amount+'</span></td>\n' +
+                                   '<td><button class="btn btn-sm btn-success" onclick="apply('+transaction.id+',\''+transaction.trans_id+'\',\''+transaction.msisdn+'\',\''+transaction.kyc_name+'\','+transaction.trans_amount+')">apply</button></td>' +
+                                   '                            </tr>');
+                           })
+
                             $('#t_table').slideDown();
                             $('#t_error').hide();
-                            $('#t_amount').text(transaction.trans_amount);
-                            $('#t_phone').text(transaction.msisdn);
-                            $('#t_name').text(transaction.kyc_name);
-                            $('#t_code').text(transaction.trans_id);
-                            window.mpesaData=transaction;
                         }else{
                             $('#t_error').fadeIn();
                             $('#t_table').hide();
@@ -606,13 +620,13 @@
                     });
         }
 
-        function apply() {
-            if(mpesaData!=null){
-                $('#t_id').val(mpesaData.id);
-                $("input[name='amount']").val(mpesaData.trans_amount);
-                $("input[name='mpesa_code']").val(mpesaData.trans_id);
-                $('#mpesaModal').modal('hide');
-            }
+        function apply(id,trans_id,msisdn,kyc_name,trans_amt) {
+            $('#t_id').val(id);
+            $("input[name='amount']").val(trans_amt);
+            $("input[name='mpesa_code']").val(trans_id);
+            $("input[name='name']").val(kyc_name);
+            $("input[name='phone']").val(msisdn);
+            $('#mpesaModal').modal('hide');
         }
     </script>
 

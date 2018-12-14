@@ -151,7 +151,6 @@ class SalesController extends Controller
         //validate
         $validator = Validator::make($request->all(), [
             'channel' => 'required',
-            'phone' => 'size:10',
         ], [
             'channel.required' => 'Please select a payment method.',
             'phone.size' => 'Phone number must be 10 digits'

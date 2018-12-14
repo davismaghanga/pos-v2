@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'notify_mpesa'
+        'notify_mpesa','mpesa-transactions'
     ];
 }
