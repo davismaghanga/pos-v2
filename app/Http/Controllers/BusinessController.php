@@ -110,7 +110,7 @@ class BusinessController extends Controller
                             'business_id' => $data['business']]);
 
                 //send the reg details to the user
-                $message = "%s. \n Login details \n Business code: %d \n Username: %s \n Password: %s \n Login at http://koowa.co.uk/htcPOS";
+                $message = "%s. \n Login details \n Business code: %d \n Username: %s \n Password: %s \n Login at pos.neverest.co.ke";
                 $message = sprintf($message, $user->name, $business->id, $user->username, $data['pwd']);
 
                 $response = SMS::send_user_intro($message, $user->phone);
