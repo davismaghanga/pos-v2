@@ -136,7 +136,7 @@ desired effect
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>HTC</b>POS</span>
+            <span class="logo-lg">POS</span>
         </a>
 
         <!-- Header Navbar -->
@@ -280,7 +280,7 @@ desired effect
             Anything you want
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2019 <a href="#">Company</a>.</strong> All rights reserved.
     </footer>
 </div>
 <!-- ./wrapper -->
